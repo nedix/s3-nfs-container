@@ -14,6 +14,6 @@ jobs:
     steps:
       - id: run-checks
         name: Run checks
-        uses: nedix/actions/run-checks@v0.8.28
+        uses: nedix/actions/run-checks@v0.8.29
         with:
           command: ./tests/index.sh
