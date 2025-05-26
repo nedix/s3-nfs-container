@@ -17,6 +17,6 @@ jobs:
     steps:
       - id: update-dependencies
         name: Update dependencies
-        uses: nedix/actions/update-dependencies@v10.0.0
+        uses: nedix/actions/update-dependencies@v0.10.2
         with:
           scheduled_updates_enabled: "${{ secrets.SCHEDULED_UPDATES_ENABLED }}"
