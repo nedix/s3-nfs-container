@@ -10,6 +10,9 @@ on:
     - cron: '0 */6 * * *'
   workflow_dispatch:
 
+env:
+  SCHEDULED_UPDATES_ENABLED: 'false'
+
 jobs:
   update-dependencies:
     name: Update dependencies
@@ -17,7 +20,6 @@ jobs:
     steps:
       - id: update-dependencies
         name: Update dependencies
-        uses: nedix/actions/update-dependencies@v0.9.20
+        uses: nedix/actions/update-dependencies@v0.10.0
         with:
-          app_id: ${{ secrets.RENOVATE_APP_ID }}
-          app_pem: ${{ secrets.RENOVATE_APP_PEM }}
+          scheduled_updates_enabled: "$SCHEDULED_UPDATES_ENABLED"
