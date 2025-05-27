@@ -17,7 +17,7 @@ jobs:
     steps:
       - id: update-package
         name: Update package
-        uses: nedix/actions/update-package@v0.10.0
+        uses: nedix/actions/update-package@v0.10.2
         with:
           platforms: linux/amd64,linux/arm64/v8
           registry: docker.io
