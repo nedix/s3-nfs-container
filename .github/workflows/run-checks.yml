@@ -5,7 +5,6 @@ on:
   pull_request_target:
     branches: ['main']
     types: ['opened', 'reopened', 'synchronize']
-  workflow_dispatch:
 
 jobs:
   run-checks:
@@ -14,6 +13,6 @@ jobs:
     steps:
       - id: run-checks
         name: Run checks
-        uses: nedix/actions/run-checks@v0.10.2
+        uses: nedix/actions/run-checks@main
         with:
           command: ./tests/index.sh

@@ -17,6 +17,8 @@ jobs:
     steps:
       - id: update-dependencies
         name: Update dependencies
-        uses: nedix/actions/update-dependencies@v0.10.2
+        uses: nedix/actions/update-dependencies@main
         with:
-          scheduled_updates_enabled: "${{ secrets.SCHEDULED_UPDATES_ENABLED }}"
+          app_id: ${{ secrets.GH_APP_ID }}
+          app_pem: ${{ secrets.GH_APP_PEM }}
+          personal_access_token: ${{ secrets.GH_PAT }}

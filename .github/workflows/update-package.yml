@@ -17,10 +17,10 @@ jobs:
     steps:
       - id: update-package
         name: Update package
-        uses: nedix/actions/update-package@v0.10.2
+        uses: nedix/actions/update-package@main
         with:
           platforms: linux/amd64,linux/arm64/v8
-          registry: docker.io
-          registry_path: nedix/s3-nfs
-          registry_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          registry_password: ${{ secrets.DOCKERHUB_PAT }}
+          registry: ${{ secrets.REGISTRY_DOMAIN }}
+          registry_path: ${{ secrets.REGISTRY_PATH }}
+          registry_username: ${{ secrets.REGISTRY_USERNAME }}
+          registry_password: ${{ secrets.REGISTRY_PASSWORD }}
