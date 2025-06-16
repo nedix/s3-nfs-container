@@ -12,7 +12,6 @@
 : ${S3_ENDPOINT}
 : ${S3_REGION}
 : ${S3_SECRET_ACCESS_KEY}
-: ${STARTUP_TIMEOUT}
 
 HOME_DIRECTORY="/${HOME_DIRECTORY#/}"
 HOME_DIRECTORY="${HOME_DIRECTORY%/}"
@@ -59,6 +58,5 @@ ROOT_DIRECTORY="${ROOT_DIRECTORY%/}"
 #    Liftoff!
 # -------------------------------------------------------------------------------
 exec env -i \
-    S6_CMD_WAIT_FOR_SERVICES_MAXTIME="$(( $STARTUP_TIMEOUT * 1000 ))" \
-    S6_STAGE2_HOOK=/usr/sbin/s6-stage2-hook \
+    S6_STAGE2_HOOK="/usr/bin/s6-stage2-hook" \
     /init
