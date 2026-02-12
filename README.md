@@ -14,7 +14,7 @@ Multiple services can use the same volume.
 ### 1. Create the Compose manifest
 
 ```shell
-wget -q https://raw.githubusercontent.com/nedix/s3-nfs-container/main/docs/examples/compose.yml
+wget -q https://raw.githubusercontent.com/nedix/s3-nfs-container/main/examples/compose.yml
 ```
 
 
