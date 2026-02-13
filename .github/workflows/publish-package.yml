@@ -1,4 +1,4 @@
-name: Update package
+name: Publish package
 
 on:
   push:
@@ -11,13 +11,13 @@ permissions:
   security-events: write
 
 jobs:
-  update-package:
-    name: Update package
+  publish-package:
+    name: Publish package
     runs-on: ubuntu-latest
     steps:
-      - id: update-package
-        name: Update package
-        uses: nedix/actions/update-package@main
+      - id: publish-package
+        name: Publish package
+        uses: nedix/actions/publish-package@main
         with:
           platforms: linux/amd64,linux/arm64/v8
           registry: ${{ secrets.REGISTRY_DOMAIN }}

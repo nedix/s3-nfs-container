@@ -1,4 +1,4 @@
-name: Run checks
+name: Perform checks
 
 on:
   merge_group:
@@ -7,12 +7,12 @@ on:
     types: ['opened', 'reopened', 'synchronize']
 
 jobs:
-  run-checks:
-    name: Run checks
+  perform-checks:
+    name: Perform checks
     runs-on: ubuntu-latest
     steps:
-      - id: run-checks
-        name: Run checks
-        uses: nedix/actions/run-checks@main
+      - id: perform-checks
+        name: Perform checks
+        uses: nedix/actions/perform-checks@main
         with:
           command: ./tests/index.sh

@@ -1,0 +1,19 @@
+name: Activate workflows
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  activate-workflows:
+    name: Activate workflows
+    runs-on: ubuntu-latest
+    steps:
+      - id: activate-workflows
+        name: Activate workflows
+        uses: nedix/actions/activate-workflows@main
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          app_pem: ${{ secrets.GH_APP_PEM }}
+          personal_access_token: ${{ secrets.GH_PAT }}
