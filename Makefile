@@ -7,12 +7,15 @@ destroy:
 
 up: NFS_PORT = "2049"
 up:
-	@docker run --rm -d --name s3-nfs \
-        --cap-add SYS_ADMIN \
-        --device /dev/fuse \
-        --env-file .env \
-        -p 127.0.0.1:$(NFS_PORT):2049 \
-        s3-nfs
+	@docker run \
+		--cap-add SYS_ADMIN \
+		--device /dev/fuse \
+		--env-file .env \
+		--name s3-nfs \
+		--rm \
+		-p 127.0.0.1:$(NFS_PORT):2049 \
+		-d \
+		s3-nfs
 	@docker logs -f s3-nfs
 
 down:
