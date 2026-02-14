@@ -20,7 +20,7 @@ jobs:
         uses: nedix/actions/publish-package@main
         with:
           platforms: linux/amd64,linux/arm64/v8
-          registry: ${{ secrets.REGISTRY_DOMAIN }}
-          registry_path: ${{ secrets.REGISTRY_PATH }}
-          registry_username: ${{ secrets.REGISTRY_USERNAME }}
-          registry_password: ${{ secrets.REGISTRY_PASSWORD }}
+          registry: ${{ secrets.REGISTRY_DOMAIN || 'ghcr.io' }}
+          registry_path: ${{ secrets.REGISTRY_PATH || github.repository }}
+          registry_username: ${{ secrets.REGISTRY_USERNAME || github.actor }}
+          registry_password: ${{ secrets.REGISTRY_PASSWORD || github.token }}
