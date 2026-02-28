@@ -4,12 +4,6 @@ on:
   push:
     tags: ['*']
 
-permissions:
-  attestations: write
-  id-token: write
-  packages: write
-  security-events: write
-
 jobs:
   publish-package:
     name: Publish package
@@ -19,6 +13,7 @@ jobs:
         name: Publish package
         uses: nedix/actions/publish-package@main
         with:
+          enable_cache: 'true'
           platforms: linux/amd64,linux/arm64/v8
           registry: ${{ secrets.REGISTRY_DOMAIN || 'ghcr.io' }}
           registry_path: ${{ secrets.REGISTRY_PATH || github.repository }}
