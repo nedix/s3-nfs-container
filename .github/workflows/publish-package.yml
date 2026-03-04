@@ -4,6 +4,9 @@ on:
   push:
     tags: ['*']
 
+permissions:
+  id-token: write
+
 jobs:
   publish-package:
     name: Publish package
