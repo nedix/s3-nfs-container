@@ -1,1 +1,1 @@
-/mnt/rclone    *(rw,fsid=0,no_auth_nlm,insecure,no_subtree_check)
+/data    *(rw,fsid=0,no_auth_nlm,insecure,no_subtree_check)

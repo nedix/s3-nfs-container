@@ -70,6 +70,6 @@ EOF
 /usr/bin/rclone rc \
     mount/mount \
     fs="remote:${S3_BUCKET}" \
-    mountPoint=/mnt/rclone \
+    mountPoint=/data \
     mountOpt="$(mount_options)" \
     vfsOpt="$(vfs_options)"
