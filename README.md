@@ -45,12 +45,12 @@ docker run \
     --device /dev/fuse \
     --name s3-nfs \
     --pull always \
-    --rm \
-    -e S3_ACCESS_KEY_ID "qux" \
-    -e S3_BUCKET "baz" \
-    -e S3_ENDPOINT "foo" \
-    -e S3_REGION "bar" \
-    -e S3_SECRET_ACCESS_KEY "quux" \
+    --restart unless-stopped \
+    -e S3_ACCESS_KEY_ID="qux" \
+    -e S3_BUCKET="baz" \
+    -e S3_ENDPOINT="foo" \
+    -e S3_REGION="bar" \
+    -e S3_SECRET_ACCESS_KEY="quux" \
     -p 127.0.0.1:2049:2049 \
     nedix/s3-nfs
 ```
