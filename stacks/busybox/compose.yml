@@ -13,7 +13,7 @@ services:
     ports:
       - "127.0.0.1:${FORWARD_S3_NFS_PORT}:2049"
 
-  example-container:
+  busybox:
     image: busybox
     volumes:
       - s3-nfs:/data

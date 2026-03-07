@@ -28,7 +28,7 @@ docker compose up -d
 ### 3. List the S3 bucket contents from inside the example container
 
 ```shell
-docker compose exec example-container ls /data
+docker compose exec busybox ls /data
 ```
 
 
