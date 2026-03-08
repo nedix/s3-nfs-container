@@ -12,8 +12,14 @@ cd ./stacks/busybox/
 test -e .env || cp .env.example .env && nano .env
 ```
 
-## 3. Run stack
+## 3. Run busybox container
 
 ```shell
-make setup && make down; make up
+make setup && make run
+```
+
+## 4. List data
+
+```shell
+ls -hal /data
 ```
