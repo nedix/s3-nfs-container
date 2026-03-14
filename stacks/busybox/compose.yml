@@ -14,7 +14,7 @@ services:
       S3_REGION: "$S3_REGION"
       S3_SECRET_ACCESS_KEY: "$S3_SECRET_ACCESS_KEY"
     ports:
-      - "127.0.0.1:${FORWARD_NFS_PORT}:2049"
+      - "127.0.0.1:${FORWARD_NFS_PORT:-2049}:2049"
 
   busybox:
     image: busybox
@@ -28,5 +28,5 @@ volumes:
   s3-nfs:
     driver_opts:
       device: :/
-      o: "vers=4,addr=127.0.0.1,port=${FORWARD_S3_NFS_PORT},rw"
+      o: "vers=4,addr=127.0.0.1,port=${FORWARD_S3_NFS_PORT:-2049},rw"
       type: nfs

@@ -6,14 +6,16 @@ destroy:
 	-@docker rm -fv s3-nfs
 
 up: NFS_PORT = "2049"
+up: RCLONE_PORT = "5572"
 up:
 	@docker run \
-		--cap-add SYS_ADMIN \
+		--privileged \
 		--device /dev/fuse \
 		--env-file .env \
 		--name s3-nfs \
 		--rm \
 		-p 127.0.0.1:$(NFS_PORT):2049 \
+		-p 127.0.0.1:$(RCLONE_PORT):5572 \
 		-d \
 		s3-nfs
 	@docker logs -f s3-nfs
