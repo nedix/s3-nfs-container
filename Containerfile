@@ -1,6 +1,5 @@
 ARG ALPINE_VERSION=3.23
-ARG RCLONE_VERSION=1.73.2
-ARG RCLONE_WEBUI_VERSION=2.0.5
+ARG JUICEFS_VERSION=1.3.1
 ARG S6_OVERLAY_VERSION=3.2.2.0
 
 FROM alpine:${ALPINE_VERSION} AS base
@@ -24,27 +23,33 @@ RUN apk add --virtual .build-deps \
     | tar -xpJf- -C / \
     && apk del .build-deps
 
-FROM rclone/rclone:${RCLONE_VERSION} AS rclone
+FROM base AS build-base
 
-FROM base AS rclone-webui
+RUN apk add \
+        gcc \
+        go \
+        make
 
-ARG RCLONE_WEBUI_VERSION
+RUN apk add git
 
-WORKDIR /build/rclone-webui
+FROM build-base AS juicefs
 
-RUN wget -qO- "https://github.com/rclone/rclone-webui-react/releases/download/v${RCLONE_WEBUI_VERSION}/currentbuild.zip" \
-    | unzip - \
-    && mkdir -p /var/rclone/webgui \
-    && mv -T build /var/rclone/webgui
+WORKDIR /build/juicefs/
+
+ARG JUICEFS_VERSION
+
+RUN git clone --depth 1 --recursive https://github.com/juicedata/juicefs.git . \
+    && git fetch origin tag "v${JUICEFS_VERSION}" \
+    && git checkout "tags/v${JUICEFS_VERSION}" \
+    && make
 
 FROM base
 
 RUN apk add \
-        fuse3 \
         nfs-utils
+#        fuse3 \
 
-COPY --link --from=rclone /usr/local/bin/rclone /usr/bin/
-COPY --link --from=rclone-webui /var/rclone/webgui/ /var/rclone/webgui/
+COPY --link --from=juicefs /build/juicefs/juicefs /usr/bin/
 
 COPY /rootfs/ /
 
@@ -52,11 +57,6 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 # NFS
 EXPOSE 2049
-
-# Rclone
-EXPOSE 5572/tcp
-
-VOLUME /var/rclone
 
 HEALTHCHECK \
     --start-period=15s \

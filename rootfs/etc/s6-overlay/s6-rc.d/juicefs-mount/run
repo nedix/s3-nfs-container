@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+mkdir -p \
+    /data/
+
+exec juicefs mount \
+    --no-usage-report \
+    sqlite3://myjfs.db \
+    /data/ \
+    -d

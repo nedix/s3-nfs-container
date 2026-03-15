@@ -6,7 +6,6 @@ destroy:
 	-@docker rm -fv s3-nfs
 
 up: NFS_PORT = "2049"
-up: RCLONE_PORT = "5572"
 up:
 	@docker run \
 		--privileged \
