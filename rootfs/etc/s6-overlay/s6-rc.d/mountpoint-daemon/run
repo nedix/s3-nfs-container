@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+: ${S3_ACCESS_KEY_ID}
+: ${S3_BUCKET}
+: ${S3_ENDPOINT}
+: ${S3_REGION}
+: ${S3_SECRET_ACCESS_KEY}
+
+mkdir -p \
+    /data/ \
+    /var/mountpoint/cache/
+
+export AWS_ACCESS_KEY_ID="$S3_ACCESS_KEY_ID"
+export AWS_SECRET_ACCESS_KEY="$S3_SECRET_ACCESS_KEY"
+
+exec /usr/bin/mount-s3 \
+    --allow-other \
+    --cache="/var/mountpoint/cache/" \
+    --endpoint-url="https://${S3_ENDPOINT}" \
+    --foreground \
+    --region="$S3_REGION" \
+    "$S3_BUCKET" \
+    /data/

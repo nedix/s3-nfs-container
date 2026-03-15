@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+while ! df --output=target,source | grep -qE '^/data\s+mountpoint-s3$'; do
+    sleep 1
+done
