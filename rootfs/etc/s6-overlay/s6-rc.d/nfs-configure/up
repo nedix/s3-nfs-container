@@ -2,4 +2,4 @@
 
 exportfs -r
 
-rpc.nfsd -N 3
+rpc.nfsd --no-nfs-version 3 --nfs-version 4.0 --nfs-version 4.1 --nfs-version 4.2

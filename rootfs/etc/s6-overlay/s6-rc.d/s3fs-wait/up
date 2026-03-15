@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+while ! df --output=target,source | grep -qE '^/data\s+s3fs$'; do
+    sleep 1
+done

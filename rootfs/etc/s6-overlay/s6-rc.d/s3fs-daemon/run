@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+: ${S3_ACCESS_KEY_ID}
+: ${S3_BUCKET}
+: ${S3_ENDPOINT}
+: ${S3_REGION}
+: ${S3_SECRET_ACCESS_KEY}
+
+mkdir -p \
+    /data/
+
+export AWS_ACCESS_KEY_ID="$S3_ACCESS_KEY_ID"
+export AWS_SECRET_ACCESS_KEY="$S3_SECRET_ACCESS_KEY"
+
+exec s3fs \
+    "$S3_BUCKET" \
+    /data/ \
+    -o allow_other \
+    -o region="$S3_REGION" \
+    -o url="https://${S3_ENDPOINT}"
