@@ -18,6 +18,7 @@ cat <<EOF
     $([ -z "$BUFFER_SIZE" ] || echo "\"BufferSize\": $(( $BUFFER_SIZE * 1048576 )),")
     $([ -z "$CHECK_FIRST" ] || echo "\"CheckFirst\": true,")
     $([ -z "$ORDER_BY" ] || echo "\"OrderBy\": \"$ORDER_BY\",")
+    "CheckSum": true,
     "Checkers": 1,
     "DisableHTTP2": true,
     "IgnoreSize": true,
@@ -32,9 +33,7 @@ cat <<EOF
     "StreamingUploadCutoff": 0,
     "Timeout": 0,
     "TrackRenames": true,
-    "UpdateOlder": true,
-    "UseMmap": true,
-    "UseServerModTime": true
+    "UseMmap": true
 }
 EOF
 }
@@ -72,6 +71,6 @@ EOF
 /usr/bin/rclone rc \
     mount/mount \
     fs="remote:${S3_BUCKET}" \
-    mountPoint=/data \
+    mountPoint="/data/" \
     mountOpt="$(mount_options)" \
     vfsOpt="$(vfs_options)"
