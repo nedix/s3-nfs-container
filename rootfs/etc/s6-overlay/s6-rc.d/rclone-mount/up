@@ -18,7 +18,7 @@ cat <<EOF
     $([ -z "$BUFFER_SIZE" ] || echo "\"BufferSize\": $(( $BUFFER_SIZE * 1048576 )),")
     $([ -z "$CHECK_FIRST" ] || echo "\"CheckFirst\": true,")
     $([ -z "$ORDER_BY" ] || echo "\"OrderBy\": \"$ORDER_BY\",")
-    "Checkers": 32,
+    "Checkers": 1,
     "DisableHTTP2": true,
     "IgnoreSize": true,
     "LowLevelRetries": 2,
