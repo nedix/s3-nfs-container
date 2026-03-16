@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+nbd-client -unix /tmp/zerofs-nbd.sock /dev/nbd4 -N storage -persist -timeout 600 -connections 4
+#nbd-client 127.0.0.1 10809 /dev/nbd4 -N storage -persist -timeout 600 -connections 4

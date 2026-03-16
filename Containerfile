@@ -1,7 +1,6 @@
 ARG ALPINE_VERSION=3.23
-ARG RCLONE_VERSION=1.73.2
-ARG RCLONE_WEBUI_VERSION=2.0.5
 ARG S6_OVERLAY_VERSION=3.2.2.0
+ARG ZEROFS_VERSION=1.0.6
 
 FROM alpine:${ALPINE_VERSION} AS base
 
@@ -24,18 +23,29 @@ RUN apk add --virtual .build-deps \
     | tar -xpJf- -C / \
     && apk del .build-deps
 
-FROM rclone/rclone:${RCLONE_VERSION} AS rclone
+FROM base AS build-base
 
-FROM base AS rclone-webui
+RUN apk add \
+        ca-certificates \
+        cargo \
+        cmake \
+        g++ \
+        git \
+        linux-headers \
+        make \
+        openssl-dev \
+        pkgconf
 
-ARG RCLONE_WEBUI_VERSION
+FROM build-base AS zerofs
 
-WORKDIR /build/rclone-webui
+WORKDIR /build/zerofs/
 
-RUN wget -qO- "https://github.com/rclone/rclone-webui-react/releases/download/v${RCLONE_WEBUI_VERSION}/currentbuild.zip" \
-    | unzip - \
-    && mkdir -p /var/rclone/webgui \
-    && mv -T build /var/rclone/webgui
+ARG ZEROFS_VERSION
+
+RUN git clone --depth 1 --recursive https://github.com/Barre/ZeroFS . \
+    && git fetch origin tag "v${ZEROFS_VERSION}" \
+    && git checkout "tags/v${ZEROFS_VERSION}" \
+    && (cd zerofs && cargo build --release --target-dir "${PWD}/../output/")
 
 FROM base
 
@@ -43,8 +53,10 @@ RUN apk add \
         fuse3 \
         nfs-utils
 
-COPY --link --from=rclone /usr/local/bin/rclone /usr/bin/
-COPY --link --from=rclone-webui /var/rclone/webgui/ /var/rclone/webgui/
+RUN apk add nbd-client
+RUN apk add e2fsprogs
+
+COPY --link --from=zerofs /build/zerofs/output/release/zerofs /usr/bin/
 
 COPY /rootfs/ /
 
@@ -53,11 +65,6 @@ ENTRYPOINT ["/entrypoint.sh"]
 # NFS
 EXPOSE 2049
 
-# Rclone
-EXPOSE 5572/tcp
-
-VOLUME /var/rclone
-
-HEALTHCHECK \
-    --start-period=15s \
-    CMD nc -z 127.0.0.1 2049
+##HEALTHCHECK \
+##    --start-period=15s \
+##    CMD nc -z 127.0.0.1 2049

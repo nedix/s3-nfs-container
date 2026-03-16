@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+while ! nc -z 127.0.0.1 5564; do
+    sleep 1
+done
+
+while ! ls /tmp/zerofs-nbd.sock 1> /dev/null 2> /dev/null; do
+    sleep 1
+done

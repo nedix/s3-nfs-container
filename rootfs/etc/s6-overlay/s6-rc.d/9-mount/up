@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+mkdir -p /mnt/zerofs-9p/
+
+mount -t 9p -o trans=tcp,port=5564,version=9p2000.L 127.0.0.1 /mnt/zerofs-9p/

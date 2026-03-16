@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+mkdir -p /mnt/zerofs-9p/.nbd/
+truncate -s 1G /mnt/zerofs-9p/.nbd/storage

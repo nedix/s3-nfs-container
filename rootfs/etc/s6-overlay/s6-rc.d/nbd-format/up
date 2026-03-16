@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+mkfs.ext4 /dev/nbd4

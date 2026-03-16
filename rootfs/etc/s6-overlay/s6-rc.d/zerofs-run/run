@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+exec zerofs run --config="/etc/zerofs/config.toml"

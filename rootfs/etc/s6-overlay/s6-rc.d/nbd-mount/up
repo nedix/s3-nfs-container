@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+mkdir -p /mnt/zerofs-nbd4
+
+mount /dev/nbd4 /mnt/zerofs-nbd4

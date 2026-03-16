@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+echo "user_allow_other" >> /etc/fuse.conf
+
 exportfs -r
 
 rpc.nfsd -N 3

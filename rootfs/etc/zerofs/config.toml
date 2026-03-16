@@ -1,0 +1,21 @@
+[cache]
+dir = "/var/cache/zerofs/"
+disk_size_gb = 1
+
+[storage]
+encryption_password = "<encryption_password>"
+url = "s3://<bucket>/<path>"
+
+[aws]
+access_key_id = "<access_key_id>"
+allow_http = "true"
+endpoint = "https://<endpoint>"
+region = "<region>"
+secret_access_key = "<secret_access_key>"
+
+[servers.ninep]
+addresses = ["0.0.0.0:5564"]
+unix_socket = "/tmp/zerofs-9p.sock"
+
+[servers.nbd]
+unix_socket = "/tmp/zerofs-nbd.sock"
