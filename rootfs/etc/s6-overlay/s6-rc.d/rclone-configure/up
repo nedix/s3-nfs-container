@@ -6,8 +6,6 @@
 : ${S3_REGION}
 : ${S3_SECRET_ACCESS_KEY}
 
-echo "user_allow_other" >> /etc/fuse.conf
-
 mkdir -p \
     /etc/rclone \
     /data
