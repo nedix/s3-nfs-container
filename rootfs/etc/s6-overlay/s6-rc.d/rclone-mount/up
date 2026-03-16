@@ -19,7 +19,6 @@ cat <<EOF
     $([ -z "$CHECK_FIRST" ] || echo "\"CheckFirst\": true,")
     $([ -z "$ORDER_BY" ] || echo "\"OrderBy\": \"$ORDER_BY\",")
     "CheckSum": true,
-    "DeleteMode": 1,
     "DisableHTTP2": true,
     "IgnoreSize": true,
     "LowLevelRetries": 2,
