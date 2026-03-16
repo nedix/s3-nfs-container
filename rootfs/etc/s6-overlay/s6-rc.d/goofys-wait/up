@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+while ! df | grep -qE '^[[:alnum:]]{7}.*/data$'; do
+    sleep 1
+done
