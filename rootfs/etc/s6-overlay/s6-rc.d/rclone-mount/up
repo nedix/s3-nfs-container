@@ -18,20 +18,23 @@ cat <<EOF
     $([ -z "$BUFFER_SIZE" ] || echo "\"BufferSize\": $(( $BUFFER_SIZE * 1048576 )),")
     $([ -z "$CHECK_FIRST" ] || echo "\"CheckFirst\": true,")
     $([ -z "$ORDER_BY" ] || echo "\"OrderBy\": \"$ORDER_BY\",")
-    "CheckSum": true,
+    "Checkers": 32,
     "DisableHTTP2": true,
     "IgnoreSize": true,
     "LowLevelRetries": 2,
     "MultiThreadStreams": 0,
     "NoAppleDouble": true,
     "NoAppleXattr": true,
+    "NoCheckDest": true,
     "Retries": 10,
     "RetriesInterval": 1000000000,
     "ServerSideAcrossConfigs": true,
     "StreamingUploadCutoff": 0,
     "Timeout": 0,
     "TrackRenames": true,
-    "UseMmap": true
+    "UpdateOlder": true,
+    "UseMmap": true,
+    "UseServerModTime": true
 }
 EOF
 }
