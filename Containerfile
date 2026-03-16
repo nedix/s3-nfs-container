@@ -1,7 +1,6 @@
 ARG ALPINE_VERSION=3.23
-ARG RCLONE_VERSION=1.73.2
-ARG RCLONE_WEBUI_VERSION=2.0.5
 ARG S6_OVERLAY_VERSION=3.2.2.0
+ARG SEAWEEDFS_VERSION=4.17
 
 FROM alpine:${ALPINE_VERSION} AS base
 
@@ -24,27 +23,29 @@ RUN apk add --virtual .build-deps \
     | tar -xpJf- -C / \
     && apk del .build-deps
 
-FROM rclone/rclone:${RCLONE_VERSION} AS rclone
+FROM base AS build-base
 
-FROM base AS rclone-webui
+RUN apk add \
+        git \
+        go
 
-ARG RCLONE_WEBUI_VERSION
+FROM build-base AS seaweedfs
 
-WORKDIR /build/rclone-webui
+WORKDIR /build/seaweedfs/
 
-RUN wget -qO- "https://github.com/rclone/rclone-webui-react/releases/download/v${RCLONE_WEBUI_VERSION}/currentbuild.zip" \
-    | unzip - \
-    && mkdir -p /var/rclone/webgui \
-    && mv -T build /var/rclone/webgui
+ARG SEAWEEDFS_VERSION
+
+RUN git clone --depth 1 --recursive https://github.com/seaweedfs/seaweedfs.git . \
+    && git fetch origin tag "$SEAWEEDFS_VERSION" \
+    && git checkout "tags/${SEAWEEDFS_VERSION}" \
+    && (cd weed && GOBIN="${PWD}/output/" go install)
 
 FROM base
 
 RUN apk add \
-        fuse3 \
         nfs-utils
 
-COPY --link --from=rclone /usr/local/bin/rclone /usr/bin/
-COPY --link --from=rclone-webui /var/rclone/webgui/ /var/rclone/webgui/
+COPY --link --from=seaweedfs /build/seaweedfs/weed/output/weed /usr/bin/
 
 COPY /rootfs/ /
 
@@ -52,11 +53,6 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 # NFS
 EXPOSE 2049
-
-# Rclone
-EXPOSE 5572/tcp
-
-VOLUME /var/rclone
 
 HEALTHCHECK \
     --start-period=15s \
