@@ -13,11 +13,6 @@
 : ${S3_REGION}
 : ${S3_SECRET_ACCESS_KEY}
 
-HOME_DIRECTORY="/${HOME_DIRECTORY#/}"
-HOME_DIRECTORY="${HOME_DIRECTORY%/}"
-ROOT_DIRECTORY="/${ROOT_DIRECTORY#/}"
-ROOT_DIRECTORY="${ROOT_DIRECTORY%/}"
-
 # -------------------------------------------------------------------------------
 #    Bootstrap rclone services
 # -------------------------------------------------------------------------------
