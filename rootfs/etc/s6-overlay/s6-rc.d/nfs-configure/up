@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+echo "user_allow_other" >> /etc/fuse.conf
+
 exportfs -r
 
 rpc.nfsd --no-nfs-version 3 --nfs-version 4.0 --nfs-version 4.1 --nfs-version 4.2

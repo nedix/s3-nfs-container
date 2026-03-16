@@ -14,7 +14,12 @@ export AWS_ACCESS_KEY_ID="$S3_ACCESS_KEY_ID"
 export AWS_SECRET_ACCESS_KEY="$S3_SECRET_ACCESS_KEY"
 
 exec /usr/bin/mount-s3 \
+    --allow-delete \
     --allow-other \
+    --allow-overwrite \
+    --dir-mode="0777" \
+    --file-mode="0666" \
+    --incremental-upload \
     --cache="/var/mountpoint/cache/" \
     --endpoint-url="https://${S3_ENDPOINT}" \
     --foreground \
