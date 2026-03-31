@@ -8,7 +8,7 @@
       fileMatch: ["^Containerfile$"],
       matchStrings: ["ARG ALPINE_VERSION=(?<currentValue>.*?)\\n"],
       datasourceTemplate: "docker",
-      packageNameTemplate: "alpine",
+      packageNameTemplate: "ghcr.io/nedix/alpine-base-container",
     },
     {
       depNameTemplate: "Rclone",
