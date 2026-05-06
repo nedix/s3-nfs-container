@@ -1,6 +1,6 @@
 {
   extends: [
-    "https://raw.githubusercontent.com/nedix/actions/main/renovate.json5",
+    "https://raw.githubusercontent.com/nedix/actions/main/renovate-base.json5",
   ],
   customManagers: [
     {
